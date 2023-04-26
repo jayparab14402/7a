@@ -1,0 +1,39 @@
+A)Performing table join
+Dataset we are using:
+tl_2013_06_tract.zip ca_tracts_pop.csv
+1.Add vector layer “tl_2013_06_tract.shp”
+2.Right click on this layer in layer pane and select “Open Attribute Table”
+3.Observe the attributes of this shape file, to join table with this shape 
+file we need to have one common column, in this case GEOID is the unique identifier
+ for each tract and it can be used to join any other table containing the same ID.
+4.Open the .csv file “ca_tracts_pop.csv” with notepad. Each row of this file contains
+ information about tract with unique identifier as we have seen in previous step. Here
+ the same field is named as GEO.id2 in csv. In this csv file D001 column has population
+ value for each census tract.
+5.We can import the above file directly in QGIS but the default type for each column will
+ be String (text). This is fine for all the columns except D001 which contains Population 
+value and if this is imported as text then it will not allow us to perform any mathematical 
+operations on this column.
+6.To tell QGIS to import this column as number we need to create one text file with .csvt extension,
+ this file will be used to specify just the data types of each column as shown below. Save this file as
+ “ca_tracts_pop.csvt” in the same folder.
+
+“String”, “String”, “String”, “String”, “String”, “Integer”,
+
+7.Now we are ready to import csv file, go to layer  Add Delimited Text Layer…
+8.Browse to the location where the csv file is stored and select it. Select file format as CSV. Since 
+we are importing this file as table, we need to specify that this file contains no geometry. Select 
+No Geometry option and click on Ok.
+9.The csv is imported as table in QGIS.
+10.Double click on tl_2013_06_tract layer in layer pane to open the Layer Properties window.
+11.On layer properties window click on Join tab and click on plus (+) button at the bottom to 
+create new table join.
+12.In the Add vector join dialog box select ca_tracts_pop as Join layer, select GEO.id2 as Join 
+field and GEOID as Target field. Click Ok.
+Click on Ok button on Layer properties window and then close it.
+13.Now, right click on tl_2013_06_tract and select Open Attribute Table.
+14.We can see new ca_tracts_pop_D001 is added for each feature. Close the attribute table.
+15.Double click on the same layer. Click on style tab, select Graduated from the dropdown. We need
+ to assign different color to each census tract based on population count, so select ca_tracts_pop_D001 
+as the column. Select any color ramp from the drop down. In mode select Quantile (Equal Count). Next click
+ on Classify button, now we can see different color is assigned to various population ranges. Click on Ok.
